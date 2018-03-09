@@ -34,9 +34,8 @@ int permutations(Token t){
 	return value; 
 }
 
-int combinations(){
+int combinations(Token t){
 	int value = permutations(); 
-	Token t = ts.get();
 	switch (t.kind) {
 	case 'c':
 		value /= factorial(t.b);
@@ -54,10 +53,10 @@ try
         Token t = t.get();
 	switch (t.kind) {
 	case 'c': 
-		value = combinations(); 
+		value = combinations(t); 
 
 	case 'p': 
-		value = permutations(); 
+		value = permutations(t); 
 	default: 
 		error ("Bad token in main()")
 	}
