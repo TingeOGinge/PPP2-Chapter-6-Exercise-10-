@@ -1,67 +1,54 @@
-class Token {
-public:
-	int a; 
-	int b; 
-	char kind; 
-	Token get(); 
-	Token(int a, int b, char ch)
-		:a(a), b(b), kind(ch) { }
-};
-
-
-Token Token::get(){
-	int a, b; 
-	char ch; 
-	cin >> a >> b >> ch;
-	if (!cin) error("Invalid input") 
-	switch(ch) {
-	case 'p': case 'c': 
-		return Token(a, b, ch)
-	default:
-		error("Bad token"); 
-	}
-	
-}
+//Permutations P(a,b) = a! / (a-b)!
+//Combinations C(a,b) = P(a,b) / b! 
 
 factorial(int a){
-	for (int x = a; x > 0; x--) a *= x; 
-	return a;
+	if (a < 0) error("Invalid argument factorial()");
+	if (a == 0) return 1;
+	else 
+		for (int x = a - 1; x > 0; x--) {
+			a *= x; 
+			return a;
+		}
 }
 
-int permutations(Token t){
-	int value = factorial(t.a) / factorial(t.a - t.b);
-	ts.putback(t);
+int permutations(int a, int b){
+	if (a < b) error("Invalid arguments permutations()")
+	int value = factorial(a) / factorial(a - b);
 	return value; 
 }
 
-int combinations(Token t){
-	int value = permutations(); 
-	switch (t.kind) {
-	case 'c':
-		value /= factorial(t.b);
-		return value; 
-	default:
-		error("combinations() unexpected kind");
-	}
+int combinations(int a, int b){
+	int value = permutations(a, b); 
+	value /= factorial(b);
+	return value; 
+}
+
+void print_results(int a){
+	cout << "= " << a << endl;
 }
 
 int main()
 try
 {
     while (cin) {
-	int value; 
-        Token t = t.get();
-	switch (t.kind) {
+	int a = 0, b = 0; 
+        cin >> a >> b;
+	if (!cin) error("Number expected main()") 
+	char ch; 
+	cin >> ch; 
+	switch (ch) {
 	case 'c': 
-		value = combinations(t); 
-
+		value = combinations(a, b); 
 	case 'p': 
-		value = permutations(t); 
+		value = permutations(a, b); 
+	case 'x':
+		break;
 	default: 
-		error ("Bad token in main()")
+		error ("'c' 'p' or 'x' expected in main()");
+	
+	print_results(value);	
 	}
     }
-
 }
 catch (exception& e) {
     cerr << "error: " << e.what() << '\n'; 
