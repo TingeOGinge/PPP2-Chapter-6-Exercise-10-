@@ -1,7 +1,7 @@
 //Permutations P(a,b) = a! / (a-b)!
 //Combinations C(a,b) = P(a,b) / b! 
 
-factorial(int a){
+int factorial(int a){
 	if (a < 0) error("Invalid argument factorial()");
 	if (a == 0) return 1;
 	else 
@@ -31,7 +31,7 @@ int main()
 try
 {
     while (cin) {
-	int a = 0, b = 0; 
+	int a = 0, b = 0, value = 0; 
         cin >> a >> b;
 	if (!cin) error("Number expected main()") 
 	char ch; 
@@ -41,10 +41,8 @@ try
 		value = combinations(a, b); 
 	case 'p': 
 		value = permutations(a, b); 
-	case 'x':
-		break;
 	default: 
-		error ("'c' 'p' or 'x' expected in main()");
+		error ("'c' or 'p' expected in main()");
 	
 	print_results(value);	
 	}
