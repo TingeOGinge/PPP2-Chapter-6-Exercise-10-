@@ -2,10 +2,16 @@
 //Combinations C(a,b) = P(a,b) / b! 
 
 int factorial(int a){
+//Factorial: if a == 5, then 5! = 5*4*3*2*1
+	constexpr int INT_MAX = numeric_limits<int>::max();
+	
 	if (a < 0) error("Factorial of a negative is undefined");
 	if (a == 0) return 1;
 	else 
-		for (int x = a - 1; x > 1; x--) a *= x; 
+		for (int x = a - 1; x > 0; x--){
+			if (INT_MAX - a < a*x) error("factorial(); has overflowed the int")
+			a *= x; 
+		}
 	return a;
 }
 
