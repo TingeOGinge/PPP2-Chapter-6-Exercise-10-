@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "std_lib_facilities.h"
 
 //Permutations P(a,b) = a! / (a-b)!
@@ -6,10 +5,8 @@
 
 int factorial(int a) {
 	//Calculates factorial
-	//Pre-condition: Cannot equate factorial of a negative number 
 	//Post-condition: Result cannot cause integer overflow
 
-	if (a < 0) error("Factorial of a negative is undefined");	//Pre-condition
 	if (a == 0) return 1;
 	else 
 		for (int x = a - 1; x > 0; x--) {
