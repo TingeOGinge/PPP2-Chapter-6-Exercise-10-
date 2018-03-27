@@ -4,11 +4,11 @@
 //Combinations C(a,b) = P(a,b) / b! 
 
 int factorial(int a) {
-//Calculates factorial
+//Calculates factorial e.g. 5! = 120
 //Pre-condition: Cannot equate factorial of a negative number 
 //Post-condition: Result cannot cause integer overflow
 	if (a < 0) error("Factorial of a negative is undefined");	//Pre-condition
-	if (a == 0) return 1;
+	if (a == 0) return 1;		//Standard mathematical result when completing 0!
 	else
 		for (int x = a - 1; x > 0; x--) {
 			if (numeric_limits<int>::max() - a < a * x) error("factorial(); integer overflow");	//Post-condtion
@@ -19,33 +19,35 @@ int factorial(int a) {
 
 int permutations(int a, int b) {
 //Calculates permutations 
+//Pre-condition: 'a' cannot be larger than 'b'	
 //Post-condition: Result cannot cause integer overflow	
+	if (a < b) error("Cannot have 'a < b'");	//Pre-condition
 	int result = 1;
-	for (int i = a - b + 1; i < = a; ++i) {
-	if (numeric_limits<int>::max() - result < result * i) error("permutations(); integer overflow");	//Post-condition
-        result *= i;
+	for (int x = a - b + 1; x <= a; ++x) {
+	if (numeric_limits<int>::max() - result < result * x) error("permutations(); integer overflow");	//Post-condition
+        result *= x;
 	}
 	return result;
 }
 
 int combinations(int a, int b) {
-//Calculcates Permutations
+//Calculcates combinations
 	return permutations(a, b) / factorial(b);
 }
 
 int main() {
 //Permutations and Combinations program
-//Pre-condition: cin must not fail 
-//Post-conditions: (1. 'a' cannot be smaller than 'b') (2. 'ch' must be a valid input)
+//Pre-conditions: (1. cin must not fail) (2. Non-positive integers are rejected)
+//Post-conditions: 'ch' must be a valid input
 	try
 	{
-		int a, b, value;
+		int a, b value;
 		cout << "Permutations P(a,b): For P(5,3) please enter '5 3 p'"
 			"Combinations C(a,b): For C(5,3) please enter '5 3 c' \n";
 		while (cin) {			
 			cin >> a >> b;
-			if (!cin) error("Number expected in main()");	//Pre-condition 
-			if (a < b) error("Cannot have 'a < b'");	//Post-condition (1)
+			if (!cin) error("Number expected in main()");	//Pre-condition(1)
+			if (a < 0 || b < 0) error("Positive integers only");	//Pre-condition(2)
 			char ch;
 			cin >> ch;
 			switch (ch) {
