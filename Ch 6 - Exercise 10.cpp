@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "std_lib_facilities.h"
 
 //Permutations P(a,b) = a! / (a-b)!
@@ -8,13 +7,11 @@ int factorial(int a) {
 //Calculates factorial
 //Pre-condition: Cannot equate factorial of a negative number 
 //Post-condition: Result cannot cause integer overflow
-	constexpr int int_max = numeric_limits<int>::max();
-
 	if (a < 0) error("Factorial of a negative is undefined");	//Pre-condition
 	if (a == 0) return 1;
 	else
 		for (int x = a - 1; x > 0; x--) {
-			if (int_max - a < a * x) error("factorial(); integer overflow");	//Post-condtion
+			if (numeric_limits<int>::max() - a < a * x) error("factorial(); integer overflow");	//Post-condtion
 			a *= x;
 		}
 	return a;
@@ -22,7 +19,13 @@ int factorial(int a) {
 
 int permutations(int a, int b) {
 //Calculates permutations 
-	return factorial(a) / factorial(a - b);
+//Post-condition: Result cannot cause integer overflow	
+	int result = 1;
+	for (int i = a - b + 1; i < = a; ++i) {
+	if (numeric_limits<int>::max() - result < result * i) error("permutations(); integer overflow");	//Post-condition
+        result *= i;
+	}
+	return result;
 }
 
 int combinations(int a, int b) {
@@ -37,8 +40,8 @@ int main() {
 	try
 	{
 		int a, b, value;
-		cout << "Permutations: For P(5,3) please enter '5 3 p'"
-			"Combinations: For C(5,3) please enter '5 3 c' \n";
+		cout << "Permutations P(a,b): For P(5,3) please enter '5 3 p'"
+			"Combinations C(a,b): For C(5,3) please enter '5 3 c' \n";
 		while (cin) {			
 			cin >> a >> b;
 			if (!cin) error("Number expected in main()");	//Pre-condition 
@@ -56,7 +59,6 @@ int main() {
 				break;
 			default:
 				error("'c' or 'p' expected in main()");	//Post-condition (2)
-				break;
 			}
 		}
 	}
