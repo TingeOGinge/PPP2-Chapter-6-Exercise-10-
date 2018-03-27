@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "std_lib_facilities.h"
 
 //Permutations P(a,b) = a! / (a-b)!
@@ -23,10 +24,6 @@ int permutations(int a, int b) {
 
 int combinations(int a, int b) {
 	return permutations(a, b) / factorial(b);
-}
-
-void print_results(int a) {
-	cout << "= " << a << endl;
 }
 
 int main() {
